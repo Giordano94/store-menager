@@ -15,7 +15,14 @@ const getProductById = async (productId) => {
   return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
 };
 
+const insertProduct = async (product) => {
+  const newProductId = await productsModel.insertProduct(product);
+  const newProduct = await productsModel.getProductsById(newProductId);
+  return { type: null, message: newProduct };
+};
+
 module.exports = {
   getAllProducts,
   getProductById,
+  insertProduct,
 };
