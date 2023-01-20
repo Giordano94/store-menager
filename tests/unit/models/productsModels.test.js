@@ -8,10 +8,10 @@ const { expect } = chai;
 
 describe("products Model", function () {
   describe("Get all products", function () {
+    afterEach(() => {
+      sinon.restore();
+    });
     it("Check if it returns all products in the list", async function () {
-      afterEach(() => {
-        sinon.restore();
-      });
       sinon.stub(connection, "execute").resolves(listProducts);
 
       const result = await productsModel.getAllProducts();
@@ -21,15 +21,57 @@ describe("products Model", function () {
   });
 
   describe("List products by id", function () {
+    afterEach(() => {
+      sinon.restore();
+    });
     it("Check if the requested product is returned ", async function () {
-        afterEach(() => {
-          sinon.restore();
-        });
       sinon.stub(connection, "execute").resolves([[listProducts[0]]]);
 
       const result = await productsModel.getProductsById(1);
 
       expect(result).to.be.deep.equal(listProducts[0]);
+    });
+  });
+
+  describe("Create a new product", function () {
+    afterEach(() => {
+      sinon.restore();
+    });
+    it("Check if return the new product  ", async function () {
+      const newProduct = {
+        name: "Armor Iron man",
+      };
+
+      sinon.stub(connection, "execute").resolves([{ insertId: 5 }]);
+
+      const result = await productsModel.insertProduct(newProduct);
+
+      expect(result).to.be.deep.equal(5);
+    });
+  });
+
+  describe("Update product", function () {
+    afterEach(() => {
+      sinon.restore();
+    });
+    it("Check if return the product updated  ", async function () {
+      const updatedProduct = {
+        name: " Armor Iron Patriot",
+      };
+
+      const productToUpdate = 5;
+
+      sinon.stub(connection, "execute").resolves([{ updateRows: 1 }]);
+
+      const result = await productsModel.updateProduct(
+        updatedProduct,
+        productToUpdate
+      );
+
+      expect(result).to.be.deep.equal({
+        id: productToUpdate,
+        ...updatedProduct,
+      });
     });
   });
 });

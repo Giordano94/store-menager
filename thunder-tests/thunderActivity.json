@@ -1,0 +1,73 @@
+[
+  {
+    "_id": "c7420837-4506-428c-a408-3ea1ed588138",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3000/products",
+    "url": "http://localhost:3000/products/4",
+    "method": "PUT",
+    "sortNum": 0,
+    "created": "2023-01-17T00:59:09.189Z",
+    "modified": "2023-01-20T18:27:56.344Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"id\": 2,\n  \"name\": \"Traje \"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "68dac473-8f0b-46e3-945e-4ff3ab5fce51",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3000/products",
+    "url": "http://localhost:3000/products",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-01-19T17:03:44.312Z",
+    "modified": "2023-01-19T17:05:35.001Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"Hotweels\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "ffd55110-b20e-4b3c-83e0-289c935c9f4e",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3000/products/1",
+    "url": "http://localhost:3000/products/e",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-01-19T17:04:14.684Z",
+    "modified": "2023-01-20T22:32:44.784Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "449a67f6-b8d5-4087-8519-2ebb9bdd6dfa",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3000/products",
+    "url": "http://localhost:3000/products",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2023-01-19T17:06:01.556Z",
+    "modified": "2023-01-20T18:12:55.922Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \" Batmóvel\"\n}",
+      "form": []
+    },
+    "tests": []
+  }
+]
