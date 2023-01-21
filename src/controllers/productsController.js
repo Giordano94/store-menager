@@ -10,8 +10,8 @@ const getAllProducts = async (_req, res) => {
 const getProductById = async (req, res) => {
   const { id } = req.params;
   const { type, message } = await productsService.getProductById(id);
- //  if (type !== null) return res.status(404).json('Product not found');
- if (type !== null) return res.status(errorMap.mapError(type)).json(message);
+  //  if (type !== null) return res.status(404).json('Product not found');
+  if (type !== null) return res.status(errorMap.mapError(type)).json({ message });
   return res.status(200).json(message);
 };
 
@@ -27,7 +27,7 @@ const updateProduct = async (req, res) => {
   const { id } = req.params;
 
   const { type, message } = await productsService.updateProduct(name, id);
-  if (type) return res.status(errorMap.mapError(type).json(message));
+  if (type) return res.status(errorMap.mapError(type)).json({ message });
   return res.status(200).json(message);
 };
 
