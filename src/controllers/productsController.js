@@ -10,15 +10,14 @@ const getAllProducts = async (_req, res) => {
 const getProductById = async (req, res) => {
   const { id } = req.params;
   const { type, message } = await productsService.getProductById(id);
-  //  if (type !== null) return res.status(404).json('Product not found');
-  if (type !== null) return res.status(errorMap.mapError(type)).json({ message });
+  if (type !== null) { return res.status(errorMap.mapError(type)).json({ message }); }
   return res.status(200).json(message);
 };
 
 const insertProduct = async (req, res) => {
   const { name } = req.body;
   const { type, message } = await productsService.insertProduct(name);
-  if (type) return res.status(errorMap.mapError(type).json(message));
+  if (type) return res.status(errorMap.mapError(type)).json(message);
   return res.status(201).json(message);
 };
 
@@ -31,9 +30,17 @@ const updateProduct = async (req, res) => {
   return res.status(200).json(message);
 };
 
+const removeProduct = async (req, res) => {
+  const { id } = req.params;
+  const { type, message } = await productsService.removeProduct(id);
+  if (type) return res.status(errorMap.mapError(type)).json({ message });
+  return res.status(204).json();
+};
+
 module.exports = {
   getAllProducts,
   getProductById,
   insertProduct,
   updateProduct,
+  removeProduct,
 };
