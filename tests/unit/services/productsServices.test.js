@@ -4,7 +4,7 @@ const sinonChai = require("sinon-chai");
 
 const productsModel = require("../../../src/models/productsModel");
 const productsService = require("../../../src/services/productsService");
-const listProducts = require("./mocks/listProducts.model.mock");
+const listProducts = require("../mocks/listProducts.mock");
 
 chai.use(sinonChai);
 const { expect } = chai;
@@ -19,8 +19,7 @@ describe("products Service", function () {
 
       const result = await productsService.getAllProducts();
 
-      expect(result.type).to.be.equal(null);
-      expect(result).to.be.deep.equal(listProducts);
+      expect(result).to.be.deep.equal({ type: null, message: listProducts });
     });
   });
 
@@ -30,26 +29,21 @@ describe("products Service", function () {
     });
 
     it("Check if the requested product is returned   ", async function () {
-      sinon
-        .stub(productsModel, "getProductsById")
-        .resolves([[listProducts[0]]]);
+      const requestedProduct = [
+        {
+          id: 3,
+          name: "Escudo do Capitão América",
+        },
+      ];
 
-      const result = await productsService.getProductsById(1);
+      sinon.stub(productsModel, "getProductsById").resolves(requestedProduct);
 
-      expect(result.type).to.be.equal(null);
-      expect(result).to.be.deep.equal(listProducts[0]);
-    });
+      const result = await productsService.getProductById(3);
 
-    it("Check if the id is valid  ", async function () {
-      const errorMessage = '"id" must be a number';
-      const errorType = "INVALID_VALUE";
-
-      sinon.stub(productsModel, "getProductsById").resolves("0");
-
-      const result = await productsService.getProductsById("0");
-
-      expect(result.type).to.be.equal(errorType);
-      expect(result.message).to.be.deep.equal(errorMessage);
+      expect(result).to.be.deep.equal({
+        type: null,
+        message: requestedProduct,
+      });
     });
 
     it("Check that the ordered product has not been returned  ", async function () {
@@ -58,10 +52,12 @@ describe("products Service", function () {
 
       sinon.stub(productsModel, "getProductsById").resolves();
 
-      const result = await productsService.getProductsById(123);
+      const result = await productsService.getProductById(123);
 
-      expect(result.type).to.be.equal(errorType);
-      expect(result.message).to.be.deep.equal(errorMessage);
+      expect(result).to.be.deep.equal({
+        type: errorType,
+        message: errorMessage,
+      });
     });
   });
 
@@ -74,13 +70,14 @@ describe("products Service", function () {
         name: "Armor Iron man",
       };
 
-      sinon.stub(productsModel, "insertProduct").resolves(1);
-      sinon.stub(productsModel, "getProductsById").resolves(listProducts[0]);
+      const newId = 5;
+
+      sinon.stub(productsModel, "insertProduct").resolves(newProduct);
+      sinon.stub(productsModel, "getProductsById").resolves(5);
 
       const result = await productsService.insertProduct(newProduct);
 
-      expect(result.type).to.be.equal(null);
-      expect(result).to.be.deep.equal(listProducts[0]);
+      expect(result).to.be.deep.equal({ type: null, message: newId });
     });
   });
 
@@ -88,18 +85,62 @@ describe("products Service", function () {
     afterEach(() => {
       sinon.restore();
     });
-    it("Check if return the product updated  ", async function () {
+    it("Check if return error message if product not exists  ", async function () {
       const updatedProduct = {
-        id: 5,
         name: "Super man",
       };
 
-      sinon.stub(productsModel, "updateProduct").resolves(updatedProduct);
+      sinon.stub(productsModel, "getProductById").resolves(undefined);
 
-      const result = await productsService.updateProduct(updatedProduct);
+      const result = await productsService.updateProduct(undefined);
 
-      expect(result.type).to.be.equal(null);
-      expect(result).to.be.deep.equal(updatedProduct);
+      expect(result).to.be.deep.equal({
+        type: "PRODUCT_NOT_FOUND",
+        message: "Product not found",
+      });
+    });
+
+    afterEach(() => {
+      sinon.restore();
+    });
+
+    it("Check if return the update product  ", async function () {
+      const updatedProduct = {
+        name: "Super man",
+      };
+
+      const updateId = 3;
+
+
+      sinon
+        .stub(productsModel, "updateProduct")
+        .resolves( updateId, updatedProduct );
+
+      const result = await productsService.updateProduct(
+        updatedProduct,
+        Number(updateId)
+      );
+
+      expect(result).to.be.deep.equal({
+        type: null,
+        message: updatedProduct,
+      });
+    });
+  });
+
+  describe("Remove product", function () {
+    afterEach(() => {
+      sinon.restore();
+    });
+    it("Check if remove product   ", async function () {
+      sinon.stub(productsModel, "removeProduct").resolves();
+
+      const result = await productsService.removeProduct(2);
+
+      expect(result).to.be.deep.equal({
+        type: null,
+        message: "",
+      });
     });
   });
 });

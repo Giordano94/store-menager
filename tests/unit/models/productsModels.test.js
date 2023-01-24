@@ -2,7 +2,7 @@ const chai = require("chai");
 const sinon = require("sinon");
 const productsModel = require("../../../src/models/productsModel");
 const { connection } = require("../../../src/models/connection");
-const listProducts = require("./mocks/listProducts.model.mock");
+const listProducts = require("../mocks/listProducts.mock");
 
 const { expect } = chai;
 
@@ -12,11 +12,11 @@ describe("products Model", function () {
       sinon.restore();
     });
     it("Check if it returns all products in the list", async function () {
-      sinon.stub(connection, "execute").resolves(listProducts);
+      sinon.stub(connection, "execute").resolves([listProducts]);
 
       const result = await productsModel.getAllProducts();
 
-      expect(result).to.be.deep.equal([listProducts]);
+      expect(result).to.be.deep.equal(listProducts);
     });
   });
 
@@ -55,23 +55,30 @@ describe("products Model", function () {
       sinon.restore();
     });
     it("Check if return the product updated  ", async function () {
-      const updatedProduct = {
-        name: " Armor Iron Patriot",
-      };
+      const productId = 1;
+      const updatedProduct = "updatedProduct";
 
-      const productToUpdate = 5;
-
-      sinon.stub(connection, "execute").resolves([{ updateRows: 1 }]);
+      sinon.stub(connection, "execute").resolves([{ changedRows: 1 }]);
 
       const result = await productsModel.updateProduct(
         updatedProduct,
-        productToUpdate
+        productId
       );
 
-      expect(result).to.be.deep.equal({
-        id: productToUpdate,
-        ...updatedProduct,
-      });
+      expect(result).to.be.deep.equal({ id: 1, name: "updatedProduct" });
+    });
+  });
+
+  describe("Remove products", function () {
+    afterEach(() => {
+      sinon.restore();
+    });
+    it("Check if remove product", async function () {
+      sinon.stub(connection, "execute").resolves(3);
+
+      const result = await productsModel.removeProduct(3);
+
+      expect(result).to.be.deep.equal();
     });
   });
 });

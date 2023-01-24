@@ -28,7 +28,6 @@ const updateProduct = async (updatedProduct, id) => {
 
   const updated = await productsModel.updateProduct(updatedProduct, Number(id));
   if (updated) return { type: null, message: updated };
-  return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
 };
 
 const removeProduct = async (id) => {

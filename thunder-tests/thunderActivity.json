@@ -8,12 +8,12 @@
     "method": "PUT",
     "sortNum": 0,
     "created": "2023-01-17T00:59:09.189Z",
-    "modified": "2023-01-21T18:05:06.256Z",
+    "modified": "2023-01-24T15:33:12.835Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"name\": \"warrior \" \n}",
+      "raw": "{\n  \"name\": \"I \" \n}",
       "form": []
     },
     "tests": []
@@ -42,11 +42,11 @@
     "colId": "history",
     "containerId": "",
     "name": "http://localhost:3000/products/1",
-    "url": "http://localhost:3000/products/e",
+    "url": "http://localhost:3000/products/2",
     "method": "GET",
     "sortNum": 0,
     "created": "2023-01-19T17:04:14.684Z",
-    "modified": "2023-01-20T22:32:44.784Z",
+    "modified": "2023-01-21T18:10:37.454Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -60,14 +60,42 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2023-01-19T17:06:01.556Z",
-    "modified": "2023-01-20T18:12:55.922Z",
+    "modified": "2023-01-22T00:37:46.135Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"name\": \" Batmóvel\"\n}",
+      "raw": "{\n  \"name\": \" J\"\n}",
       "form": []
     },
+    "tests": []
+  },
+  {
+    "_id": "f56f6db5-6cb6-4f3c-b50a-4e3c93752a06",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3000/products/5",
+    "url": "http://localhost:3000/products/3",
+    "method": "DELETE",
+    "sortNum": 0,
+    "created": "2023-01-21T19:51:00.215Z",
+    "modified": "2023-01-21T20:18:40.633Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "0df5c046-03eb-42d0-8b0c-01491095dbea",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3000/sales",
+    "url": "http://localhost:3000/sales/1",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-01-21T21:01:37.905Z",
+    "modified": "2023-01-24T16:17:45.398Z",
+    "headers": [],
+    "params": [],
     "tests": []
   }
 ]
