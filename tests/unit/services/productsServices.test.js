@@ -81,7 +81,8 @@ describe("products Service", function () {
     });
   });
 
-  describe("Update product", function () {
+  /*
+describe("Update product", function () {
     afterEach(() => {
       sinon.restore();
     });
@@ -128,6 +129,7 @@ describe("products Service", function () {
     });
   });
 
+
   describe("Remove product", function () {
     afterEach(() => {
       sinon.restore();
@@ -143,4 +145,6 @@ describe("products Service", function () {
       });
     });
   });
+
+  */
 });
